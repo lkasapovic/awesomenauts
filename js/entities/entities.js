@@ -15,7 +15,7 @@ game.PlayerEntity = me.Entity.extend({
                 }
             }]);
         this.type = "PlayerEntity";
-        this.health = 20;
+        this.health = game.data.playerHealth;
         this.body.setVelocity(5, 20);
         // keeps track of the direction 
         this.facing = "right";
@@ -33,6 +33,12 @@ game.PlayerEntity = me.Entity.extend({
     
     update: function(delta) {
         this.now = new Date().getTime();
+        
+        if(this.health <= 0){
+            this.dead = true;
+        }
+        
+        
         if (me.input.isKeyPressed("right")) {
             // adds to the position of my x by the velocity defined above in 
             //setVelocity() and multiplying it by me.timer.tick.
@@ -100,12 +106,12 @@ game.PlayerEntity = me.Entity.extend({
             // colliding with the base on the right
             else if (xdif < -35 && this.facing === 'right' && xdif < 0 && ydif > -50) {
                 this.body.vel.x = 0;
-                this.pos.x = this.pos.x - 1;
+                //this.pos.x = this.pos.x - 1;
 
                 // colliding with the base on the left
             } else if (xdif < 70 && this.facing === 'left' && xdif > 0) {
                 this.body.vel.x = 0;
-                this.pos.x = this.pos.x + 1;
+                //this.pos.x = this.pos.x + 1;
             }
 
             if (this.renderable.isCurrentAnimation("attack") && this.now - this.lastHit >= 600) {
@@ -119,18 +125,18 @@ game.PlayerEntity = me.Entity.extend({
             if (xdif>0) {
                 this.pos.x = this.pos.x + 1;
                 if (this.facing==="left") {
-                    this.vel.x = 0;
+                    this.body.vel.x = 0;
                 }
             }else{
-                this.pos.x = this.pos.x - 1;
+                //this.pos.x = this.pos.x - 1;
                    if (this.facing==="right") {
-                    this.vel.x = 0;
+                    this.body.vel.x = 0;
                 }
             }
             
             if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >= 1000
                  && (Math.abs(ydif) <=40) && 
-                 ((xdif>0))
+                 (((xdif>0) && this.facing=== "left") || ((xdif<0) && this.facing==="right"))
                  ) {
                 this.lastHit = this.now;
                 response.b.loseHealth(1);
@@ -340,6 +346,12 @@ game.GameManager = Object.extend({
     
     update: function() {
         this.now = new Date().getTime();
+
+        if(game.data.player.dead){
+            me.game.world.removeChild(game.data.player);
+            me.state.current().resetPlayer(10, 0);
+        }
+
 
         if (Math.round(this.now / 1000) % 10 === 0 && (this.now - this.lastCreep >= 1000)) {
             this.lastCreep = this.now;
