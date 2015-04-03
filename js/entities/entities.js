@@ -10,14 +10,12 @@ game.PlayerEntity = me.Entity.extend({
 
         me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 
-        this.addAnimtion();
-
-
+        this.addAnimation();
 
         this.renderable.setCurrentAnimation("idle");
     },
     
-    setSuper: function() {
+    setSuper: function(x, y) {
         this._super(me.Entity, 'init', [x, y, {
                 image: "player",
                 // the 'width' and 'height' are telling the screen how much space to preserve 
@@ -59,9 +57,9 @@ game.PlayerEntity = me.Entity.extend({
     
     update: function(delta) {
         this.now = new Date().getTime();
-        this.dead = checkifDead();
+        this.dead = this.checkIfDead();
         this.checkKeyPressesAndMove();
-        this.setAnimation();
+        this.addAnimation();
         me.collision.check(this, true, this.collideHandler.bind(this), true);
         this.body.update(delta);
         this._super(me.Entity, "update", [delta]);
@@ -139,30 +137,7 @@ game.PlayerEntity = me.Entity.extend({
     
     collideHandler: function(response) {
         if (response.b.type === 'EnemyBaseEntity') {
-            var ydif = this.pos.y - response.b.pos.y;
-            var xdif = this.pos.x - response.b.pos.x;
-
-
-            if (ydif < -40 && xdif < 70 && xdif > -35) {
-                this.body.falling = false;
-                this.body.vel.y = -1;
-            }
-
-            // colliding with the base on the right
-            else if (xdif < -35 && this.facing === 'right' && xdif < 0 && ydif > -50) {
-                this.body.vel.x = 0;
-                //this.pos.x = this.pos.x - 1;
-
-                // colliding with the base on the left
-            } else if (xdif < 70 && this.facing === 'left' && xdif > 0) {
-                this.body.vel.x = 0;
-                //this.pos.x = this.pos.x + 1;
-            }
-
-            if (this.renderable.isCurrentAnimation("attack") && this.now - this.lastHit >= 600) {
-                this.lastHit = this.now;
-                response.b.loseHealth();
-            }
+            this.collideWithEnemyBase(response);
         } else if (response.b.type === 'EnemyCreep') {
             var xdif = this.pos.x - response.b.pos.x;
             var ydif = this.pos.y - response.b.pos.y;
@@ -188,11 +163,10 @@ game.PlayerEntity = me.Entity.extend({
                 if (response.b.health <= game.data.playerAttack) {
                     // adds one gold for a creep kill
                     game.data.gold += 1;
-                    console.log("Current gold: " + game.data.gold);
                 }
 
                 response.b.loseHealth(game.data.playerAttack);
             }
         }
-    }
+    },
 });
