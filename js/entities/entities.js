@@ -1,5 +1,4 @@
 // Player
-
 game.PlayerEntity = me.Entity.extend({
     init: function(x, y, settings) {
         this.setSuper(x, y);
@@ -14,6 +13,7 @@ game.PlayerEntity = me.Entity.extend({
 
         this.renderable.setCurrentAnimation("idle");
     },
+    
     setSuper: function(x, y) {
         this._super(me.Entity, 'init', [x, y, {
                 image: "player",
@@ -29,7 +29,6 @@ game.PlayerEntity = me.Entity.extend({
             }]);
     },
     
-    
     setPlayerTimers: function() {
         this.now = new Date().getTime();
         this.lastHit = this.now;
@@ -38,7 +37,7 @@ game.PlayerEntity = me.Entity.extend({
     
     setAttributes: function() {
         this.health = game.data.playerHealth;
-        this.body.setVelocity(5, 20);
+        this.body.setVelocity(game.data.playerMoveSpeed, 20);
         this.attack = game.data.playerAttack;
     },
    
@@ -59,6 +58,7 @@ game.PlayerEntity = me.Entity.extend({
         this.now = new Date().getTime();
         this.dead = this.checkIfDead();
         this.checkKeyPressesAndMove();
+        this.setAnimation();
         this.addAnimation();
         me.collision.check(this, true, this.collideHandler.bind(this), true);
         this.body.update(delta);
@@ -77,7 +77,7 @@ game.PlayerEntity = me.Entity.extend({
         if (me.input.isKeyPressed("right")) {
             this.moveRight();
         } else if (me.input.isKeyPressed("left")) {
-            this.moveleft();
+            this.moveLeft();
         } else {
             this.body.vel.x = 0;
         }
@@ -139,7 +139,7 @@ game.PlayerEntity = me.Entity.extend({
         if (response.b.type === 'EnemyBaseEntity') {
             this.collideWithEnemyBase(response);
         } else if (response.b.type === 'EnemyCreep') {
-            this.collideWithEnmeyCreep(response);
+            this.collideWithEnemyCreep(response);
         }
     },
     

@@ -26,9 +26,11 @@ game.EnemyCreep = me.Entity.extend({
         this.renderable.addAnimation("walk", [3, 4, 5], 80);
         this.renderable.setCurrentAnimation("walk");
     },
+    
     loseHealth: function(damage) {
         this.health = this.health - damage;
     },
+    
     update: function(delta) {
         if (this.health <= 0) {
             me.game.world.removeChild(this);
@@ -40,14 +42,12 @@ game.EnemyCreep = me.Entity.extend({
 
         me.collision.check(this, true, this.collideHandler.bind(this), true);
 
-
         this.body.update(delta);
-
-
 
         this._super(me.Entity, "update", [delta]);
         return true;
     },
+    
     collideHandler: function(response) {
         if (response.b.type === 'PlayerBaseEntity') {
             this.attacking = true;
