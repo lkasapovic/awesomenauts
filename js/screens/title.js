@@ -28,6 +28,25 @@ game.TitleScreen = me.ScreenObject.extend({
                 me.state.change(me.state.PLAY);
             }
         })));
+        
+         me.game.world.addChild(new (me.Renderable.extend({
+            init: function() {
+                this._super(me.Renderable, 'init', [380, 340, 250, 50]);
+                this.font = new me.Font("Arial", 46, "white");
+                // listening for the mouse to be pointed down
+                me.input.registerPointerEvent('pointerdown', this, this.newGame.bind(this), true);
+            },
+            draw: function(renderer) {
+                this.font.draw(renderer.getContext(), "CONTINUE", this.pos.x, this.pos.y);
+            },
+            update: function(dt) {
+                return true;
+            },
+            newGame: function() {
+                me.input.releasePointerEvent('pointerdown', this);
+                me.state.change(me.state.PLAY);
+            }
+        })));
 
    },
     /**	
