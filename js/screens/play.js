@@ -4,10 +4,8 @@ game.PlayScreen = me.ScreenObject.extend({
      */
     onResetEvent: function() {
         // reset the score
-        game.data.score = 0;
-        
+        game.data.score = 0;       
         me.levelDirector.loadLevel("map01");
-        
         this.resetPlayer(0, 420);
 
         var gameTimerManager = me.pool.pull("GameTimerManager", 0, 0, {});
