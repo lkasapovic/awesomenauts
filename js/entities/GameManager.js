@@ -128,7 +128,14 @@ game.SpendGold = Object.extend({
             },
             
             draw: function(renderer) {
-                this.font.draw(renderer.getContext(), "PRESS F1-F6, B to exit", this.pos.x, this.pos.y);
+                this.font.draw(renderer.getContext(), "PRESS F1-F6, B to exit. Current Gold: " + game.data.gold, this.pos.x, this.pos.y);
+                // skills
+                this.font.draw(renderer.getContext(), "Skill 1: Increase Damage. Current Level: " + game.data.skill1 + " Cost: " + ((game.data.skill1)*10),this.pos.x, this.pos.y + 40);
+                this.font.draw(renderer.getContext(), "Skill 2: Run Faster. Current Level: " + game.data.skill2 + " Cost: " + ((game.data.skill2)*10), this.pos.x, this.pos.y + 80);
+                this.font.draw(renderer.getContext(), "Skill 3: Increase Health. Current Level: " + game.data.skill3 + " Cost: " + ((game.data.skill3)*10) , this.pos.x, this.pos.y + 120);
+                this.font.draw(renderer.getContext(), "Q Ability: " + game.data.ability1 + " Cost: " + ((game.data.ability1)*10), this.pos.x, this.pos.y + 160);
+                this.font.draw(renderer.getContext(), "W Ability: " + game.data.ability2 + " Cost: " + ((game.data.ability2)*10), this.pos.x, this.pos.y + 200);
+                this.font.draw(renderer.getContext(), "E Ability: " + game.data.ability3 + " Cost: " + ((game.data.ability3)*10) , this.pos.x, this.pos.y + 240);
                 
             } 
         }));
