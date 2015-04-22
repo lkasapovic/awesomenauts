@@ -16,8 +16,8 @@ game.SpendExp = me.ScreenObject.extend({
             init: function() {
                 this._super(me.Renderable, 'init', [10, 10, 300, 50]);
                 this.font = new me.Font("Arial", 26, "white");
-         
-               
+
+
             },
             draw: function(renderer) {
                 this.font.draw(renderer.getContext(), "PRESS F1-F4, F5 TO SKIP", this.pos.x, this.pos.y);
@@ -26,30 +26,30 @@ game.SpendExp = me.ScreenObject.extend({
                 this.font.draw(renderer.getContext(), "F2: ADD STARTING GOLD ", this.pos.x, this.pos.y + 150);
                 this.font.draw(renderer.getContext(), "F3: INCREASE ATTACK DAMAGE ", this.pos.x, this.pos.y + 200);
                 this.font.draw(renderer.getContext(), "F4: INCREASE STARTING HEALTH ", this.pos.x, this.pos.y + 250);
-            } 
+            }
         })));
-        
-        this.handler = me.event.subscribe(me.event.KEYDOWN, function (action,keyCode, edge) {
-            if(action === "F1"){
-                if(game.data.exp >= exp1cost){
+
+        this.handler = me.event.subscribe(me.event.KEYDOWN, function(action, keyCode, edge) {
+            if (action === "F1") {
+                if (game.data.exp >= exp1cost) {
                     game.data.exp1 += 1;
                     game.data.exp -= exp1cost;
                     me.state.change(me.state.PLAY);
                 }
-            }else if (action === "F2") {
-                
-            }else if(action === "F3") {
-                
-            }else if(action === "F4") {
-                
-            }else if(action === "F5") {
+            } else if (action === "F2") {
+
+            } else if (action === "F3") {
+
+            } else if (action === "F4") {
+
+            } else if (action === "F5") {
                 me.state.change(me.state.PLAY);
-            }                                  
- 
+            }
+
         });
-        
-        
-   },
+
+
+    },
     /**	
      *  action to perform when leaving this screen (state change)
      */
@@ -60,6 +60,6 @@ game.SpendExp = me.ScreenObject.extend({
         me.input.unbindKey(me.input.KEY.F4, "F4");
         me.input.unbindKey(me.input.KEY.F5, "F5");
         me.event.unsubscribe(this.handler);
-        
+
     }
 });
