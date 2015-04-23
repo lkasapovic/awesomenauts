@@ -5,6 +5,7 @@ game.GameTimerManager = Object.extend({
         this.paused = false;
         this.alwaysUpdate = true;
     },
+    
     update: function() {
         this.now = new Date().getTime();
         this.goldTimerCheck();
@@ -12,12 +13,14 @@ game.GameTimerManager = Object.extend({
 
         return true;
     },
+    
     goldTimerCheck: function() {
         // adds gold
         if (Math.round(this.now / 1000) % 20 === 0 && (this.now - this.lastCreep >= 1000)) {
             game.data.gold += (game.data.exp1 + 1);
         }
     },
+    
     creepTimerCheck: function() {
         // manages creeps
         if (Math.round(this.now / 1000) % 10 === 0 && (this.now - this.lastCreep >= 1000)) {
@@ -32,6 +35,7 @@ game.HeroDeathManager = Object.extend({
     init: function(x, y, settings) {
         this.alwaysUpdate = true;
     },
+   
     update: function() {
         // removes player if hes dead and resets it
         if (game.data.player.dead) {
@@ -48,6 +52,7 @@ game.ExperienceManager = Object.extend({
         this.alwaysUpdate = true;
         this.gameover = false;
     },
+    
     update: function() {
         if (game.data.win === true && !this.gameover) {
             this.gameOver(true);
@@ -57,6 +62,7 @@ game.ExperienceManager = Object.extend({
 
         return true;
     },
+    
     gameOver: function(win) {
         if (win) {
             game.data.exp += 10;
@@ -79,6 +85,7 @@ game.SpendGold = Object.extend({
         this.updateWhenPaused = true;
         this.buying = false;
     },
+    
     update: function() {
         this.now = new Date().getTime();
 
@@ -90,11 +97,12 @@ game.SpendGold = Object.extend({
                 this.stopBuying();
             }
         }
-        
+
         this.checkBuyKeys();
 
         return true;
     },
+    
     startBuying: function() {
         this.buying = true;
         me.state.pause(me.state.PLAY);
@@ -152,39 +160,52 @@ game.SpendGold = Object.extend({
     },
     
     checkBuyKeys: function() {
-        if(me.input.isKeyPressed("F1")){
-            if(this.checkCost(1)){
+        if (me.input.isKeyPressed("F1")) {
+            if (this.checkCost(1)) {
                 this.makePurchase(1);
             }
-        }else if(me.input.isKeyPressed("F2")){
-             if(this.checkCost(2)){
+        } else if (me.input.isKeyPressed("F2")) {
+            if (this.checkCost(2)) {
                 this.makePurchase(2);
             }
-        }else if(me.input.isKeyPressed("F3")){
-             if(this.checkCost(3)){
+        } else if (me.input.isKeyPressed("F3")) {
+            if (this.checkCost(3)) {
                 this.makePurchase(3);
             }
-        }else if(me.input.isKeyPressed("F4")){
-             if(this.checkCost(4)){
+        } else if (me.input.isKeyPressed("F4")) {
+            if (this.checkCost(4)) {
                 this.makePurchase(4);
             }
-        }else if(me.input.isKeyPressed("F5")){
-             if(this.checkCost(5)){
+        } else if (me.input.isKeyPressed("F5")) {
+            if (this.checkCost(5)) {
                 this.makePurchase(5);
             }
-        }else if(me.input.isKeyPressed("F6")){
-             if(this.checkCost(6)){
+        } else if (me.input.isKeyPressed("F6")) {
+            if (this.checkCost(6)) {
                 this.makePurchase(6);
             }
         }
-   },
-   
-   checkCost: function(skill){
-       
-   },
-   
-   makePurchase: function(skill){
-       
-   }
+    },
+    
+    checkCost: function(skill) {
+        if(skill===1 && (game.data.gold >= ((game.data.skill1+1)*10))){
+            return true;
+        }else if(skill===1 && (game.data.gold >= ((game.data.skill1+1)*10))){
+            return true;
+        }else if(skill===1 && (game.data.gold >= ((game.data.skill1+1)*10))){
+            return true;
+        }else if(skill===1 && (game.data.gold >= ((game.data.skill1+1)*10))){
+            return true;    
+        }else if(skill===1 && (game.data.gold >= ((game.data.skill1+1)*10))){
+            return true; 
+        }else{
+            return false;
+        }
+        
+    },
+    
+    makePurchase: function(skill) {
+
+    }
 });
     
