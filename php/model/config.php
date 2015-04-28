@@ -5,7 +5,7 @@
     // everytime this file is called its going to regenerate the id
     session_regenerate_id(true);
     
-    $path = "/kasapovic-blog/";
+    $path = "/LejlaKasapovicAwesomenauts/php/";
     
     // host that is running our server
     $host = "localhost";
@@ -13,7 +13,7 @@
     $username = "root";
     $password = "root";
     // the name of the database, blog database
-    $database = "blog_db";
+    $database = "awesomenauts_db";
     
     if(!isset($_SESSION["connection"])) {
         $connection = new Database($host, $username, $password, $database);
