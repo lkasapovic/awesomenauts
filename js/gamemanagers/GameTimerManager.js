@@ -14,6 +14,7 @@ game.GameTimerManager = Object.extend({
         return true;
     },
     
+    // goldTimer
     goldTimerCheck: function() {
         // adds gold
         if (Math.round(this.now / 1000) % 20 === 0 && (this.now - this.lastCreep >= 1000)) {
@@ -21,6 +22,7 @@ game.GameTimerManager = Object.extend({
         }
     },
     
+    // creepTimer
     creepTimerCheck: function() {
         // manages creeps
         if (Math.round(this.now / 1000) % 10 === 0 && (this.now - this.lastCreep >= 1000)) {

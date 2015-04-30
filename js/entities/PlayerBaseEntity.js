@@ -35,14 +35,15 @@ game.PlayerBaseEntity = me.Entity.extend({
         return true;
     },
     
+    // losing health
     loseHealth: function(damage) {
         this.health = this.health - damage;
     },
     
+    // colliding
     onCollision: function() {
 
     }
-
 
 });
 

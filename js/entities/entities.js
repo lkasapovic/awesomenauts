@@ -29,12 +29,14 @@ game.PlayerEntity = me.Entity.extend({
             }]);
     },
     
+    // timers
     setPlayerTimers: function() {
         this.now = new Date().getTime();
         this.lastHit = this.now;
         this.lastAttack = new Date().getTime();
     },
     
+    // health, speed, attack
     setAttributes: function() {
         this.health = game.data.playerHealth;
         this.body.setVelocity(game.data.playerMoveSpeed, 20);
@@ -48,6 +50,7 @@ game.PlayerEntity = me.Entity.extend({
         this.attacking = false;
     },
     
+    // animation
     addAnimation: function() {
         this.renderable.addAnimation("idle", [78]);
         this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 123, 124, 125]);
@@ -66,6 +69,7 @@ game.PlayerEntity = me.Entity.extend({
         return true;
     },
     
+    // checks if a player/creep has died
     checkIfDead: function() {
         if (this.health <= 0) {
             return true;
@@ -73,6 +77,7 @@ game.PlayerEntity = me.Entity.extend({
         return false;
     },
     
+    // keys and moving
     checkKeyPressesAndMove: function() {
         if (me.input.isKeyPressed("right")) {
             this.moveRight();
@@ -89,6 +94,7 @@ game.PlayerEntity = me.Entity.extend({
         this.attacking = me.input.isKeyPressed("attack");
     },
     
+    // moving right
     moveRight: function() {
         // adds to the position of my x by the velocity defined above in 
         //setVelocity() and multiplying it by me.timer.tick.
@@ -98,17 +104,20 @@ game.PlayerEntity = me.Entity.extend({
         this.flipX(true);
     },
     
+    // moving left
     moveLeft: function() {
         this.facing = "left";
         this.body.vel.x -= this.body.accel.x * me.timer.tick;
         this.flipX(false);
     },
     
+    // jump
     jump: function() {
         this.body.jumping = true;
         this.body.vel.y -= this.body.accel.y * me.timer.tick;
     },
     
+    // animation
     setAnimation: function() {
         if (this.attacking) {
             if (!this.renderable.isCurrentAnimation("attack")) {
@@ -131,6 +140,7 @@ game.PlayerEntity = me.Entity.extend({
         }
     },
     
+    // enemy losing health
     loseHealth: function(damage) {
         this.health = this.health - damage;
     },
@@ -143,6 +153,7 @@ game.PlayerEntity = me.Entity.extend({
         }
     },
     
+    // collision with enemy base
     collideWithEnemyBase: function(response) {
         var ydif = this.pos.y - response.b.pos.y;
         var xdif = this.pos.x - response.b.pos.x;
@@ -166,6 +177,7 @@ game.PlayerEntity = me.Entity.extend({
         }
     },
     
+    // collision with enemy
     collideWithEnemyCreep: function(response){
         
             var xdif = this.pos.x - response.b.pos.x;
@@ -191,6 +203,7 @@ game.PlayerEntity = me.Entity.extend({
         }
     },
     
+    // checks attack
     checkAttack: function(xdif, ydif){
            if (this.renderable.isCurrentAnimation("attack") && this.now - this.lastHit >= 1000
                     && (Math.abs(ydif) <= 40) &&
@@ -203,6 +216,7 @@ game.PlayerEntity = me.Entity.extend({
             return false;
     },
     
+    // hitting the creep
     hitCreep: function(response){
         if (response.b.health <= game.data.playerAttack) {
                     // adds one gold for a creep kill

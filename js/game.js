@@ -1,4 +1,3 @@
-
 /* Game namespace */
 var game = {
     // an object where to store game information
@@ -70,18 +69,30 @@ var game = {
     // Run on game resources loaded.
     "loaded": function() {
         me.pool.register("player", game.PlayerEntity, true);
+        // PlayerBase
         me.pool.register("PlayerBase", game.PlayerBaseEntity);
+        //Enemy Base
         me.pool.register("EnemyBase", game.EnemyBaseEntity);
+        // EnemyCreep
         me.pool.register("EnemyCreep", game.EnemyCreep, true);
+        // GameTimer
         me.pool.register("GameTimerManager", game.GameTimerManager);
+        // HeroDeath
         me.pool.register("HeroDeathManager", game.HeroDeathManager);
+        // ExperienceManager
         me.pool.register("ExperienceManager", game.ExperienceManager);
+        // SpendGold
         me.pool.register("SpendGold", game.SpendGold);
 
+        // TitleScreen
         me.state.set(me.state.MENU, new game.TitleScreen());
+        //PlayScreen
         me.state.set(me.state.PLAY, new game.PlayScreen());
+        // SpendExp
         me.state.set(me.state.SPENDEXP, new game.SpendExp());
+        // LoadProfile
         me.state.set(me.state.LOAD, new game.LoadProfile());
+        // NewProfile
         me.state.set(me.state.NEW, new game.NewProfile());
 
         // Start the game.

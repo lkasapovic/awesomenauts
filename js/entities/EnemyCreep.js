@@ -48,6 +48,7 @@ game.EnemyCreep = me.Entity.extend({
         return true;
     },
     
+    // everything goes wrong here
     collideHandler: function(response) {
         if (response.b.type === 'PlayerBaseEntity') {
             this.attacking = true;

@@ -34,15 +34,15 @@ game.EnemyBaseEntity = me.Entity.extend({
         return true;
     },
     
+    // collision
     onCollision: function() {
 
     },
     
+    // losing health
     loseHealth: function() {
         this.health--;
     },
-    
- 
-
+   
 });
 

@@ -9,9 +9,9 @@ $query = $_SESSION["connection"]->query("CREATE TABLE users ("
         . "password char(128) NOT NULL,"
         . "salt char(128) NOT NULL,"
         . "exp int(4),"
-        . "exp int(4),"
-        . "exp int(4),"
-        . "exp int(4),"
-        . "exp int(4),"
+        . "exp1 int(4),"
+        . "exp2 int(4),"
+        . "exp3 int(4),"
+        . "exp4 int(4),"
         . "PRIMARY KEY (id))");
 

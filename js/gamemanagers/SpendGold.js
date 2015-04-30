@@ -25,6 +25,7 @@ game.SpendGold = Object.extend({
         return true;
     },
     
+    // buying gold
     startBuying: function() {
         this.buying = true;
         me.state.pause(me.state.PLAY);
@@ -43,6 +44,7 @@ game.SpendGold = Object.extend({
         this.setBuyText();
     },
     
+    // buying text
     setBuyText: function() {
         game.data.buytext = new (me.Renderable.extend({
             init: function() {
@@ -81,6 +83,7 @@ game.SpendGold = Object.extend({
 
     },
     
+    // buy keys
     checkBuyKeys: function() {
         if (me.input.isKeyPressed("F1")) {
             if (this.checkCost(1)) {
@@ -128,6 +131,7 @@ game.SpendGold = Object.extend({
         
     },
     
+    // making a purchase
     makePurchase: function(skill) {
         if (skill === 1) {
             game.data.gold -= ((game.data.skill1 + 1) * 10);
